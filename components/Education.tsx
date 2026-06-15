@@ -4,15 +4,16 @@ import { motion } from "framer-motion";
 import { Award, GraduationCap } from "lucide-react";
 
 const CERTS = [
-  { name: "Software Development Lifecycle", year: "2024" },
-  { name: "Web Design for Everybody", year: "2024" },
+  { name: "Project Management", year: "2025" },
   { name: "React Ultimate — Udemy", year: "2025" },
   { name: "Research Methods", year: "2025" },
+  { name: "Web Design for Everybody", year: "2024" },
+  { name: "Software Development Lifecycle", year: "2024" },
 ];
 
 export default function Education() {
   return (
-    <section id="education" className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
+    <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
       <div className="mb-6">
         <div className="font-mono text-xs text-ink-faint mb-2">
           <span className="text-neon">$</span> cat education.yml
@@ -115,7 +116,7 @@ export default function Education() {
 
           <ul className="grid sm:grid-cols-2 gap-2">
             {CERTS.map((c) => (
-              <li key={c.name}>
+              <li key={c.name} className="cert-pill">
                 <div className="font-mono text-xs border border-line rounded-sm px-3 py-2 bg-bg-soft/30 hover:border-amber/50 hover:bg-amber/[0.04] transition-colors">
                   <div className="text-ink leading-tight">{c.name}</div>
                   <div className="text-amber/80 mt-1 text-[11px]">
@@ -127,6 +128,6 @@ export default function Education() {
           </ul>
         </motion.div>
       </div>
-    </section>
+    </div>
   );
 }

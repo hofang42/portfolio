@@ -225,3 +225,138 @@ body {
   animation: audio 1.2s ease-in-out infinite;
 }
 
+/* ─── scroll fx: progress bar ─────────────────────────────────── */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, #00ff94 0%, #00ff94 70%, #f5a623 100%);
+  box-shadow: 0 0 8px rgba(0, 255, 148, 0.55);
+  z-index: 9999;
+  pointer-events: none;
+  will-change: width;
+  transition: width 80ms linear;
+}
+
+/* ─── scroll fx: section reveal & snap ────────────────────────── */
+
+section[data-section] {
+  scroll-margin-top: 80px;
+}
+
+/* hero stays unsnapped */
+section#home {
+  scroll-margin-top: 0;
+}
+
+section[data-section][data-revealed="false"] {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: transform, opacity;
+}
+
+section[data-section][data-revealed="true"] {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+  will-change: auto;
+}
+
+/* ─── scroll fx: typewriter prompt prepended to each section ──── */
+
+.section-typer {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 13px;
+  color: #00ff94;
+  margin: 0 0 1rem 0;
+  padding: 0 1rem;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 6px rgba(0, 255, 148, 0.4);
+  min-height: 1.2em;
+}
+.section-typer .caret {
+  display: inline-block;
+  width: 7px;
+  height: 13px;
+  background: #00ff94;
+  margin-left: 2px;
+  vertical-align: -1px;
+  animation: blink 1s steps(2, end) infinite;
+}
+@media (min-width: 768px) {
+  .section-typer { padding: 0 1.5rem; }
+}
+@media (min-width: 1024px) {
+  .section-typer { padding: 0 2.5rem; }
+}
+
+/* ─── scroll fx: staggered children ───────────────────────────── */
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+section[data-section][data-revealed="false"] .stagger-item {
+  opacity: 0;
+}
+section[data-section][data-stagger="true"] .stagger-item {
+  animation: fadeSlideUp 400ms ease-out forwards;
+  will-change: transform, opacity;
+}
+
+/* ─── scroll fx: active nav highlight ─────────────────────────── */
+
+.nav-link {
+  position: relative;
+  border-bottom: 1px solid transparent;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  height: 1px;
+  width: 0;
+  background: #00ff94;
+  transition: width 200ms ease, left 200ms ease;
+}
+.nav-link.nav-active {
+  color: #00ff94 !important;
+  text-shadow: 0 0 6px rgba(0, 255, 148, 0.45);
+}
+.nav-link.nav-active::after {
+  width: 100%;
+  left: 0;
+}
+
+/* ─── scroll fx: parallax target ──────────────────────────────── */
+
+.parallax-hero-bg {
+  will-change: transform;
+  transition: transform 60ms linear;
+}
+
+/* ─── accessibility: reduced motion ───────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress { transition: none; }
+  section[data-section][data-revealed="false"] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  section[data-section] .stagger-item {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+  .parallax-hero-bg { transform: none !important; }
+  .section-typer { display: none !important; }
+}
+

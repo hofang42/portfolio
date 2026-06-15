@@ -9,26 +9,64 @@ import Education from "@/components/Education";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Divider from "@/components/Divider";
+import ScrollFX from "@/components/ScrollFX";
+
+function SectionShell({
+  id,
+  children,
+}: {
+  id: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} data-section data-revealed="false">
+      <div className="section-typer" aria-hidden />
+      {children}
+    </section>
+  );
+}
 
 export default function HomePage() {
   return (
     <main className="relative">
+      <ScrollFX />
       <Nav />
-      <Hero />
+      <section
+        id="home"
+        data-section
+        data-revealed="true"
+        data-stagger="true"
+      >
+        <Hero />
+      </section>
       <Divider label="ABOUT" />
-      <About />
+      <SectionShell id="about">
+        <About />
+      </SectionShell>
       <Divider label="STACK" />
-      <TechStack />
+      <SectionShell id="stack">
+        <TechStack />
+      </SectionShell>
       <Divider label="OPS_LOG" />
-      <Experience />
+      <SectionShell id="experience">
+        <Experience />
+      </SectionShell>
       <Divider label="ACCELERATOR" />
-      <AWSProgram />
+      <SectionShell id="aws">
+        <AWSProgram />
+      </SectionShell>
       <Divider label="PROJECTS" />
-      <Projects />
+      <SectionShell id="projects">
+        <Projects />
+      </SectionShell>
       <Divider label="EDU" />
-      <Education />
+      <SectionShell id="education">
+        <Education />
+      </SectionShell>
       <Divider label="CONTACT" />
-      <Contact />
+      <SectionShell id="contact">
+        <Contact />
+      </SectionShell>
       <Footer />
     </main>
   );

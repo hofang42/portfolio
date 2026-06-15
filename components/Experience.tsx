@@ -1,28 +1,43 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 type Entry = {
   range: string;
   title: string;
   role?: string;
   stack?: string;
   highlight?: string;
+  bullets?: string[];
   status?: "active" | "shipped";
+  featured?: boolean;
 };
 
 const ENTRIES: Entry[] = [
   {
-    range: "[2026-01 → present]",
-    title: "GZMart E-commerce Platform",
-    role: "Frontend Lead",
-    stack: "React 18, TypeScript, Tailwind, Redux, Socket.IO, Ant Design",
-    highlight: "Built multi-role ERP system (Buyer / Seller / Admin)",
+    range: "[2026-04 → present]",
+    title: "XBrain — DevOps / CloudOps Intern",
+    role: "Cloud Infrastructure & DevOps",
+    bullets: [
+      "Architecture: 3-tier HA across multi-AZ — VPC, Security Groups, IAM least-privilege, KMS encryption.",
+      "IaC: Terraform — automated VPC, EC2, S3, IAM provisioning. Eliminated config drift via remote state.",
+      "Containers: Docker + Kubernetes (Minikube / EKS) — scalable deployments, isolated workloads.",
+      "Cost & Ops: Lambda + EventBridge Cost Guard. CloudWatch dashboards for real-time alerting.",
+      "AI: Amazon Bedrock — Knowledge Base + RAG pipeline. GenAI embedded into application backend.",
+    ],
     status: "active",
+    featured: true,
+  },
+  {
+    range: "[2026-01 → 2026-06]",
+    title: "GZMart — E-commerce Platform",
+    role: "Frontend Member",
+    stack: "React 18, TypeScript, Tailwind, Redux, Socket.IO, Ant Design",
+    highlight: "Multi-role ERP system (Buyer / Seller / Admin)",
+    status: "shipped",
   },
   {
     range: "[2025-09 → 2025-12]",
     title: "VIC SPORT — Online Sport Booking",
+    role: "Project Lead",
     stack: "React, TypeScript, Vite, Ant Design, Google Maps API, Socket.IO",
     status: "shipped",
   },
@@ -38,20 +53,14 @@ const ENTRIES: Entry[] = [
   {
     range: "[2025-01 → 2025-05]",
     title: "FPT Software",
-    role: "Front End Developer Intern",
-    status: "shipped",
-  },
-  {
-    range: "[2024-08 → 2024-12]",
-    title: "TourHub — Tour Booking Website",
-    stack: "Java Servlet, JSP, SQL Server, VietQR Payment",
+    role: "Frontend Developer Intern",
     status: "shipped",
   },
 ];
 
 export default function Experience() {
   return (
-    <section id="experience" className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
+    <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
       <div className="mb-6">
         <div className="font-mono text-xs text-ink-faint mb-2">
           <span className="text-neon">$</span> tail -f ops.log
@@ -61,7 +70,7 @@ export default function Experience() {
           <span className="text-glow-neon text-neon">Ops Log</span>
         </h2>
         <p className="text-ink-dim mt-2 max-w-2xl text-sm sm:text-base">
-          A chronological deployment log of projects shipped and roles held.
+          A chronological deployment log of cloud infra built and projects shipped.
         </p>
       </div>
 
@@ -81,14 +90,20 @@ export default function Experience() {
 
         <ol className="relative">
           {ENTRIES.map((e, i) => (
-            <motion.li
+            <li
               key={i}
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="relative px-5 py-4 sm:py-5 border-b border-line/50 last:border-b-0 hover:bg-bg-soft/40"
+              className={`timeline-entry relative px-5 py-4 sm:py-5 border-b border-line/50 last:border-b-0 transition-colors ${
+                e.featured
+                  ? "bg-neon/[0.04] border-l-2 border-l-neon shadow-[inset_0_0_24px_-12px_rgba(0,255,148,0.25)] hover:bg-neon/[0.07]"
+                  : "hover:bg-bg-soft/40"
+              }`}
             >
+              {e.featured && (
+                <div className="absolute top-3 right-4 flex items-center gap-1.5 font-mono text-[10px] tracking-widest">
+                  <span className="text-neon">★</span>
+                  <span className="text-neon">FEATURED</span>
+                </div>
+              )}
               <div className="grid sm:grid-cols-[180px_1fr] gap-2 sm:gap-5 font-mono text-sm">
                 <div className="flex items-start gap-2 text-ink-faint">
                   <span
@@ -98,7 +113,11 @@ export default function Experience() {
                         : "h-2 w-2 mt-2 rounded-full bg-ink-faint/60 shrink-0"
                     }
                   />
-                  <span className="text-xs sm:text-sm text-amber/80 whitespace-nowrap">
+                  <span
+                    className={`text-xs sm:text-sm whitespace-nowrap ${
+                      e.featured ? "text-neon/85" : "text-amber/80"
+                    }`}
+                  >
                     {e.range}
                   </span>
                 </div>
@@ -132,12 +151,25 @@ export default function Experience() {
                       <span className="text-ink">{e.highlight}</span>
                     </div>
                   )}
+                  {e.bullets && (
+                    <ul className="mt-2 space-y-1.5">
+                      {e.bullets.map((b, bi) => (
+                        <li
+                          key={bi}
+                          className="text-xs sm:text-sm flex items-start gap-2 text-ink-dim"
+                        >
+                          <span className="text-neon/80 shrink-0 mt-0.5">└─</span>
+                          <span className="text-ink/90 break-words">{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               </div>
-            </motion.li>
+            </li>
           ))}
         </ol>
       </div>
-    </section>
+    </div>
   );
 }

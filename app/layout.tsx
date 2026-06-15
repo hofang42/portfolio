@@ -14,26 +14,56 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
+const title = "Phan Lê Thanh Hoàng — DevOps & Cloud Engineering";
+const description =
+  "Software Engineer transitioning into Cloud Architecture & DevOps. Building HA AWS infrastructure with Terraform, Docker, Kubernetes. CloudOps intern @ XBrain × AWS — Da Nang, Vietnam.";
+
 export const metadata: Metadata = {
-  title: "Phan Lê Thanh Hoàng — DevOps & Cloud Engineering",
-  description:
-    "Final-year Software Engineer at FPT University (GPA 8.54). Xbrain x AWS Accelerator trainee in Da Nang. Frontend → DevOps & Cloud.",
+  metadataBase: new URL("https://hoang-portfolio.vercel.app"),
+  title,
+  description,
   keywords: [
     "Phan Le Thanh Hoang",
-    "DevOps",
+    "DevOps Engineer",
     "Cloud Engineer",
     "AWS",
+    "Terraform",
+    "Kubernetes",
+    "Docker",
+    "XBrain",
     "FPT University",
-    "Xbrain",
     "Da Nang",
     "Portfolio",
   ],
   authors: [{ name: "Phan Lê Thanh Hoàng" }],
+  icons: {
+    icon: [
+      { url: "/assets/favicon.png", type: "image/png" },
+    ],
+    shortcut: "/assets/favicon.png",
+    apple: "/assets/favicon.png",
+  },
   openGraph: {
-    title: "Phan Lê Thanh Hoàng — DevOps & Cloud Engineering",
-    description:
-      "Bridging frontend engineering with DevOps & cloud infrastructure. Xbrain x AWS Accelerator.",
+    title,
+    description,
     type: "website",
+    url: "https://hoang-portfolio.vercel.app",
+    siteName: "hoang.ops",
+    locale: "en_US",
+    images: [
+      {
+        url: "/assets/seo.png",
+        width: 1200,
+        height: 630,
+        alt: "Phan Lê Thanh Hoàng — DevOps & Cloud Engineering Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/assets/seo.png"],
   },
 };
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Github, ExternalLink, Sparkles } from "lucide-react";
 
 type Project = {
@@ -68,7 +67,7 @@ const PROJECTS: Project[] = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
+    <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
       <div className="mb-6">
         <div className="font-mono text-xs text-ink-faint mb-2">
           <span className="text-neon">$</span> ls ./projects | grep -v archive
@@ -86,13 +85,9 @@ export default function Projects() {
           const accentBorder = isNeon ? "hover:border-neon/60" : "hover:border-amber/60";
           const accentShadow = isNeon ? "hover:shadow-neon-sm" : "hover:shadow-amber-sm";
           return (
-            <motion.article
+            <article
               key={p.name}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.45, delay: i * 0.06 }}
-              className={`group terminal-frame rounded-md p-5 sm:p-6 relative transition-all ${accentBorder} ${accentShadow}`}
+              className={`project-card group terminal-frame rounded-md p-5 sm:p-6 relative transition-all ${accentBorder} ${accentShadow}`}
             >
               <span className="corner-tl" />
               <span className="corner-tr" />
@@ -158,10 +153,10 @@ export default function Projects() {
                   </span>
                 </span>
               </div>
-            </motion.article>
+            </article>
           );
         })}
       </div>
-    </section>
+    </div>
   );
 }

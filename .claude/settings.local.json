@@ -9,7 +9,10 @@
       "Write Dir",
       "Search Dir",
       "Shell",
-      "Write Dir"
+      "Write Dir",
+      "Execute File",
+      "Execute Script",
+      "Write File"
     ]
   }
 }

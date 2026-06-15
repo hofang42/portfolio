@@ -15,9 +15,10 @@ type BootLine = {
 const BOOT_LINES: BootLine[] = [
   { prompt: ">", text: "initializing portfolio.sh...", tone: "dim" },
   { prompt: ">", text: "loading profile: ", value: "PHAN LE THANH HOANG", tone: "neon" },
-  { prompt: ">", text: "role: ", value: "devops_engineer | cloud_ops_trainee", tone: "amber" },
-  { prompt: ">", text: "location: ", value: "Da Nang, Vietnam 🇻🇳", tone: "dim" },
-  { prompt: ">", text: "status: ", value: "AVAILABLE FOR HIRE ✓", tone: "neon" },
+  { prompt: ">", text: "role: ", value: "devops_engineer | cloudops_intern @ XBrain x AWS", tone: "amber" },
+  { prompt: ">", text: "stack: ", value: "terraform | docker | k8s | aws | ci_cd", tone: "dim" },
+  { prompt: ">", text: "location: ", value: "Da Nang, Vietnam", tone: "dim" },
+  { prompt: ">", text: "status: ", value: "ACTIVELY BUILDING CLOUD INFRA ✓", tone: "neon" },
 ];
 
 const CHAR_DELAY = 18;
@@ -78,16 +79,13 @@ export default function Hero() {
   const { completedLines, currentText, done } = useTypewriter(BOOT_LINES);
 
   return (
-    <section
-      id="home"
-      className="relative min-h-screen w-full overflow-hidden flex flex-col"
-    >
+    <div className="relative min-h-screen w-full overflow-hidden flex flex-col">
       {/* ─── Layered background ─────────────────────────────── */}
-      <div className="absolute inset-0 z-0 grid-bg constellation-bg" aria-hidden />
-      <div className="absolute inset-0 z-0 stars-bg opacity-60 animate-drift" aria-hidden />
+      <div className="parallax-hero-bg absolute inset-0 z-0 grid-bg constellation-bg" aria-hidden />
+      <div className="parallax-hero-bg absolute inset-0 z-0 stars-bg opacity-60 animate-drift" aria-hidden />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 opacity-[0.22] animate-flicker"
+        className="parallax-hero-bg pointer-events-none absolute inset-0 z-0 opacity-[0.22] animate-flicker"
         style={{
           background:
             "radial-gradient(ellipse 70% 40% at 50% 0%, rgba(0,255,148,0.22), transparent 60%), radial-gradient(ellipse 50% 40% at 80% 100%, rgba(245,166,35,0.14), transparent 60%)",
@@ -312,6 +310,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

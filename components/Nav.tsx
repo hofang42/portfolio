@@ -65,7 +65,7 @@ export default function Nav() {
             <Link
               key={item.href}
               href={item.href}
-              className="px-2.5 py-1 font-mono text-xs text-ink-dim hover:text-neon hover:bg-neon/[0.06] rounded-sm transition-colors"
+              className="nav-link px-2.5 py-1 font-mono text-xs text-ink-dim hover:text-neon hover:bg-neon/[0.06] rounded-sm transition-colors"
             >
               {item.label}
             </Link>
@@ -101,7 +101,7 @@ export default function Nav() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="px-3 py-2 font-mono text-xs text-ink-dim hover:text-neon hover:bg-neon/[0.06] rounded-sm"
+                className="nav-link px-3 py-2 font-mono text-xs text-ink-dim hover:text-neon hover:bg-neon/[0.06] rounded-sm"
               >
                 {item.label}
               </Link>

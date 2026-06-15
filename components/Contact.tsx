@@ -20,7 +20,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
+    <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
       <div className="mb-6">
         <div className="font-mono text-xs text-ink-faint mb-2">
           <span className="text-neon">$</span> ./contact --interactive
@@ -197,6 +197,6 @@ export default function Contact() {
           </div>
         </motion.aside>
       </div>
-    </section>
+    </div>
   );
 }

@@ -5,7 +5,7 @@ import { Cloud, Cpu, GraduationCap } from "lucide-react";
 
 export default function About() {
   return (
-    <section id="about" className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
+    <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
       <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -23,22 +23,28 @@ export default function About() {
             <span className="animate-blink text-neon">_</span>
           </h2>
           <p className="text-ink-dim leading-relaxed text-base sm:text-lg max-w-2xl">
-            Final-year{" "}
-            <span className="text-ink font-mono">Software Engineer</span> at{" "}
-            <span className="text-ink font-mono">FPT University</span> (GPA{" "}
-            <span className="text-neon font-mono">8.54/10</span>) currently
-            enrolled in the{" "}
-            <span className="text-amber font-mono">
-              Xbrain × AWS Accelerator Internship Program
-            </span>{" "}
-            — a fast-track Cloud &amp; AI training program in Da Nang.
-            Bridging frontend engineering experience with DevOps &amp; cloud
-            infrastructure skills.
+            <span className="text-ink font-mono">Software Engineer</span> with
+            a solid background in full-stack development, transitioning
+            strongly into{" "}
+            <span className="text-neon font-mono">Cloud Architecture</span>{" "}
+            and{" "}
+            <span className="text-amber font-mono">DevOps</span>. Skilled in
+            designing and hardening highly available AWS environments.
+            Passionate about{" "}
+            <span className="text-ink font-mono">
+              Infrastructure as Code (Terraform)
+            </span>
+            , container orchestration{" "}
+            <span className="text-ink font-mono">(Docker / Kubernetes)</span>,
+            and building scalable, cost-aware,{" "}
+            <span className="text-neon font-mono">zero-trust</span>{" "}
+            infrastructure. Bridging application development with resilient
+            cloud operations.
           </p>
 
           <div className="mt-6 grid sm:grid-cols-3 gap-3">
             {[
-              { k: "graduating", v: "2026", c: "text-neon" },
+              { k: "current_role", v: "CloudOps Intern", c: "text-neon" },
               { k: "track", v: "DevOps / Cloud", c: "text-amber" },
               { k: "open_to", v: "Internship · Full-time", c: "text-ink" },
             ].map((s) => (
@@ -123,6 +129,6 @@ export default function About() {
           </div>
         </motion.aside>
       </div>
-    </section>
+    </div>
   );
 }
