@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash",
+      "PowerShell",
+      "Git",
+      "Open File",
+      "Read Dir",
+      "Write Dir",
+      "Search Dir",
+      "Shell",
+      "Write Dir"
+    ]
+  }
+}
