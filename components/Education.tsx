@@ -61,7 +61,7 @@ export default function Education() {
             <div className="flex items-baseline justify-between gap-3">
               <dt className="text-ink-faint text-xs">gpa</dt>
               <dd>
-                <span className="text-glow-neon text-neon text-lg">8.54</span>
+                <span className="text-glow-neon text-neon text-lg">8.62</span>
                 <span className="text-ink-faint text-xs"> / 10</span>
               </dd>
             </div>
