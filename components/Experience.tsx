@@ -29,7 +29,7 @@ const ENTRIES: Entry[] = [
   {
     range: "[2026-01 → 2026-06]",
     title: "GZMart — E-commerce Platform",
-    role: "Frontend Member",
+    role: "Fullstack Member",
     stack: "React 18, TypeScript, Tailwind, Redux, Socket.IO, Ant Design",
     highlight: "Multi-role ERP system (Buyer / Seller / Admin)",
     status: "shipped",

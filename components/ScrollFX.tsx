@@ -15,10 +15,10 @@ const SECTION_MESSAGES: Record<string, string> = {
 const STAGGER_SELECTOR =
   ".project-card, .skill-badge, .cert-pill, .timeline-entry";
 
-const PROMPT_HOLD = 600;
-const CHAR_DELAY = 30;
-const STAGGER_STEP = 80;
-const STAGGER_CAP = 400;
+const PROMPT_HOLD = 80;
+const CHAR_DELAY = 12;
+const STAGGER_STEP = 35;
+const STAGGER_CAP = 180;
 
 function typeText(
   el: HTMLElement,
@@ -44,7 +44,7 @@ function typeText(
         if (cancelled) return;
         el.style.display = "none";
         onDone();
-      }, 250);
+      }, 80);
     }
   };
   window.setTimeout(tick, 0);
@@ -177,15 +177,15 @@ export default function ScrollFX() {
       };
 
       if (typer && message) {
-        // typewriter prompt phase
         typer.style.display = "block";
         window.setTimeout(() => {
-          const cancel = typeText(typer, message, fireRevealAndStagger);
+          const cancel = typeText(typer, message, () => {
+            typer.style.display = "none";
+          });
           cancelers.push(cancel);
         }, PROMPT_HOLD);
-      } else {
-        fireRevealAndStagger();
       }
+      fireRevealAndStagger();
     };
 
     const revealObs = new IntersectionObserver(
@@ -196,7 +196,7 @@ export default function ScrollFX() {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.05, rootMargin: "0px 0px -10% 0px" }
     );
 
     sections.forEach((s) => {

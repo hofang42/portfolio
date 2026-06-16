@@ -261,7 +261,7 @@ section[data-section][data-revealed="false"] {
 section[data-section][data-revealed="true"] {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 500ms ease-out, transform 500ms ease-out;
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
   will-change: auto;
 }
 
@@ -307,7 +307,7 @@ section[data-section][data-revealed="false"] .stagger-item {
   opacity: 0;
 }
 section[data-section][data-stagger="true"] .stagger-item {
-  animation: fadeSlideUp 400ms ease-out forwards;
+  animation: fadeSlideUp 280ms ease-out forwards;
   will-change: transform, opacity;
 }
 

@@ -72,7 +72,7 @@ export default function Nav() {
           ))}
         </nav>
 
-        <div className="ml-auto hidden md:flex items-center gap-3 font-mono text-[11px] text-ink-faint">
+        <div className="ml-auto hidden md:flex items-center gap-3 font-mono text-[11px] text-ink-faint whitespace-nowrap">
           <span className="hidden xl:inline tracking-widest">16.05°N · 108.20°E</span>
           <span className="hidden xl:inline text-line">|</span>
           <span className="flex items-center gap-1.5">
