@@ -1,42 +1,71 @@
 "use client";
 
 import {
-  Boxes,
-  Brain,
   Calendar,
   Cloud,
-  CloudCog,
-  Cpu,
+  GitBranch,
   MapPin,
-  ShieldCheck,
-  Wallet,
+  Radar,
 } from "lucide-react";
 
-const DELIVERABLES = [
+type Phase = {
+  tag: string;
+  icon: typeof Cloud;
+  title: string;
+  weeks: string;
+  desc: string;
+  items: string[];
+  accent: "neon" | "amber";
+  status: "shipped" | "active";
+};
+
+const PHASES: Phase[] = [
   {
-    icon: ShieldCheck,
-    title: "3-tier HA architecture on AWS",
-    desc: "Multi-AZ VPC failover with hardened IAM, KMS, and security groups.",
+    tag: "phase_1",
+    icon: Cloud,
+    title: "Foundation — AWS Core",
+    weeks: "W1–W7",
+    desc: "3-tier app hardened week over week, capped by a 48h AI-SaaS hackathon on a personal account under a $100 cap.",
+    items: [
+      "Well-Architected 6-pillar design · VPC, subnets, IAM least-privilege, KMS",
+      "RDS / DynamoDB · Lambda · CloudFormation · S3 storage tiers",
+      "Amazon Bedrock Knowledge Bases + RAG over OpenSearch vector store",
+      "Network Firewall, VPC Peering / Transit Gateway, Flow Logs, AWS Backup",
+      "FinOps: tagging + Cost Explorer, Automated Cost Guard, self-healing security",
+    ],
+    accent: "neon",
+    status: "shipped",
   },
   {
-    icon: CloudCog,
-    title: "Terraform IaC",
-    desc: "Zero manual provisioning. Remote state, modules, reproducible environments.",
+    tag: "phase_2",
+    icon: GitBranch,
+    title: "Specialization — Cloud / DevOps (CDO)",
+    weeks: "W8–W12",
+    desc: "Building a mini platform end-to-end: IaC → K8s → GitOps → observability → progressive delivery → cluster-level security.",
+    items: [
+      "Terraform IaC — remote state (S3 + DynamoDB lock), modules, ADRs",
+      "Kubernetes (minikube / EKS) · Helm · GitOps with ArgoCD",
+      "GitHub Actions CI/CD · Argo Rollouts canary with metric auto-abort",
+      "OpenTelemetry + Prometheus / Grafana / Loki · SLO burn-rate alerts",
+      "RBAC + OPA/Gatekeeper · External Secrets · Trivy + Cosign supply chain",
+    ],
+    accent: "amber",
+    status: "shipped",
   },
   {
-    icon: Boxes,
-    title: "Kubernetes on EKS",
-    desc: "Auto-scaling cluster with isolated workloads and rolling deployments.",
-  },
-  {
-    icon: Brain,
-    title: "Amazon Bedrock RAG pipeline",
-    desc: "Knowledge Base + retrieval-augmented AI embedded into app backend.",
-  },
-  {
-    icon: Wallet,
-    title: "Cost Guard automation",
-    desc: "Lambda + EventBridge real-time budget alerts with CloudWatch dashboards.",
+    tag: "phase_3",
+    icon: Radar,
+    title: "Service Takeover — Production Ops",
+    weeks: "live",
+    desc: "Operating a live 18-microservice AI storefront on Kubernetes as a real engineer: own the SLA, run incidents, improve under real constraints.",
+    items: [
+      "Build → ECR → Helm deploy of a polyglot gRPC + Kafka microservice system",
+      "5 pillars: Security · Reliability · Performance · Cost · Auditability",
+      "On-call incident response, SLO error budgets, decision logs (ADRs)",
+      "Postgres / Valkey / Kafka, OpenTelemetry stack, injected-fault resilience",
+    ],
+    accent: "neon",
+    status: "active",
   },
 ];
 
@@ -85,32 +114,31 @@ export default function AWSProgram() {
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-[1.05fr_1fr] gap-7 lg:gap-10">
+          <div className="grid lg:grid-cols-[1fr_1.15fr] gap-7 lg:gap-10">
             <div>
               <p className="text-ink-dim text-base sm:text-lg leading-relaxed">
-                Real, production-style cloud work — not slideware. Designing
-                hardened, cost-aware AWS infrastructure with{" "}
-                <span className="text-neon font-mono">Terraform</span>,{" "}
-                <span className="text-amber font-mono">Kubernetes</span>, and{" "}
-                <span className="text-ink font-mono">Bedrock</span>. Below is
-                what's been built and shipped under this program.
+                Real, production-style cloud work — not slideware. A three-phase
+                accelerator: build the AWS{" "}
+                <span className="text-neon font-mono">foundation</span>,
+                specialize on the{" "}
+                <span className="text-amber font-mono">Cloud / DevOps</span>{" "}
+                track, then{" "}
+                <span className="text-ink font-mono">take over a live AI product</span>{" "}
+                and operate it under real SLAs, budgets, and incidents.
               </p>
 
               <div className="mt-6 grid sm:grid-cols-2 gap-3">
                 <div className="border border-line rounded-sm p-3 font-mono text-xs">
-                  <div className="text-ink-faint">tracks</div>
+                  <div className="text-ink-faint">track</div>
                   <div className="mt-1 flex flex-wrap gap-1.5">
-                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border border-neon/40 bg-neon/[0.06] text-neon text-[11px]">
-                      <Cloud className="h-3 w-3" /> Cloud
-                    </span>
                     <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border border-amber/40 bg-amber/[0.06] text-amber text-[11px]">
-                      <Cpu className="h-3 w-3" /> AI
+                      <GitBranch className="h-3 w-3" /> CDO · Cloud/DevOps
                     </span>
                   </div>
                 </div>
                 <div className="border border-line rounded-sm p-3 font-mono text-xs">
-                  <div className="text-ink-faint">duration</div>
-                  <div className="text-amber text-base mt-0.5">4 – 6 months</div>
+                  <div className="text-ink-faint">structure</div>
+                  <div className="text-amber text-base mt-0.5">3 phases</div>
                 </div>
                 <div className="border border-line rounded-sm p-3 font-mono text-xs">
                   <div className="text-ink-faint">role</div>
@@ -125,34 +153,95 @@ export default function AWSProgram() {
                   </div>
                 </div>
               </div>
+
+              <div className="mt-4 border border-line rounded-sm p-3.5 font-mono text-xs bg-bg-soft/30">
+                <div className="text-ink-faint mb-2">// evaluated on</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {[
+                    "architecture",
+                    "IaC",
+                    "GitOps",
+                    "observability",
+                    "security",
+                    "cost",
+                    "incident response",
+                    "decision defense",
+                  ].map((t) => (
+                    <span
+                      key={t}
+                      className="px-1.5 py-0.5 rounded-sm border border-line text-ink-dim"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            {/* deliverables list */}
+            {/* phase timeline */}
             <div className="space-y-2.5">
               <div className="font-mono text-[11px] text-ink-faint mb-1 flex items-center gap-2">
                 <span className="text-neon">$</span>
-                <span>cat deliverables.md</span>
+                <span>cat program-phases.md</span>
               </div>
-              {DELIVERABLES.map((d) => (
-                <div
-                  key={d.title}
-                  className="group relative border border-line rounded-sm p-3.5 bg-bg-soft/40 hover:border-neon/60 hover:bg-neon/[0.04] transition-colors"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="h-8 w-8 grid place-items-center rounded-sm border border-neon/40 bg-neon/[0.08] text-neon shrink-0">
-                      <d.icon className="h-4 w-4" />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="font-mono text-sm text-ink truncate">
-                        {d.title}
+              {PHASES.map((p) => {
+                const isNeon = p.accent === "neon";
+                const accentText = isNeon ? "text-neon" : "text-amber";
+                const accentBorder = isNeon
+                  ? "border-neon/40 bg-neon/[0.08]"
+                  : "border-amber/40 bg-amber/[0.08]";
+                const hoverBorder = isNeon
+                  ? "hover:border-neon/60 hover:bg-neon/[0.04]"
+                  : "hover:border-amber/60 hover:bg-amber/[0.04]";
+                return (
+                  <div
+                    key={p.tag}
+                    className={`group relative border border-line rounded-sm p-4 bg-bg-soft/40 transition-colors ${hoverBorder}`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div
+                        className={`h-8 w-8 grid place-items-center rounded-sm border ${accentBorder} ${accentText} shrink-0`}
+                      >
+                        <p.icon className="h-4 w-4" />
                       </div>
-                      <div className="text-xs text-ink-dim mt-0.5 leading-relaxed">
-                        {d.desc}
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="font-mono text-sm text-ink">
+                            <span className={`${accentText}`}>{p.tag}</span>
+                            <span className="text-ink-faint"> · </span>
+                            {p.title}
+                          </div>
+                          <span
+                            className={`font-mono text-[10px] px-1.5 py-0.5 rounded-sm border shrink-0 ${
+                              p.status === "active"
+                                ? "border-neon/40 bg-neon/[0.06] text-neon"
+                                : "border-line text-ink-faint"
+                            }`}
+                          >
+                            {p.weeks}
+                          </span>
+                        </div>
+                        <div className="text-xs text-ink-dim mt-1 leading-relaxed">
+                          {p.desc}
+                        </div>
+                        <ul className="mt-2.5 space-y-1">
+                          {p.items.map((it) => (
+                            <li
+                              key={it}
+                              className="text-[11px] font-mono text-ink-dim/90 flex items-start gap-1.5"
+                            >
+                              <span className={`${accentText} shrink-0`}>
+                                └─
+                              </span>
+                              <span className="break-words">{it}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 

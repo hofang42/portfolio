@@ -16,7 +16,7 @@ const BOOT_LINES: BootLine[] = [
   { prompt: ">", text: "initializing portfolio.sh...", tone: "dim" },
   { prompt: ">", text: "loading profile: ", value: "PHAN LE THANH HOANG", tone: "neon" },
   { prompt: ">", text: "role: ", value: "devops_engineer | cloudops_intern @ XBrain x AWS", tone: "amber" },
-  { prompt: ">", text: "stack: ", value: "terraform | docker | k8s | aws | ci_cd", tone: "dim" },
+  { prompt: ">", text: "stack: ", value: "terraform | k8s | argocd | helm | aws | otel", tone: "dim" },
   { prompt: ">", text: "location: ", value: "Da Nang, Vietnam", tone: "dim" },
   { prompt: ">", text: "status: ", value: "ACTIVELY BUILDING CLOUD INFRA ✓", tone: "neon" },
 ];

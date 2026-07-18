@@ -11,6 +11,8 @@ const CLOUD = [
   "VPC",
   "IAM",
   "KMS",
+  "Lambda",
+  "ECR",
   "Amazon Bedrock",
 ];
 
@@ -18,16 +20,22 @@ const DEVOPS = [
   "Terraform (IaC)",
   "Docker",
   "Kubernetes (K8s/EKS)",
-  "CI/CD Workflows",
+  "Helm",
+  "GitOps (ArgoCD)",
   "GitHub Actions",
-  "GitOps",
+  "Argo Rollouts (Canary)",
 ];
 
 const OBS = [
+  "OpenTelemetry",
+  "Prometheus / Grafana",
+  "Loki",
+  "SLO / Burn-rate Alerts",
   "AWS CloudWatch",
   "CloudTrail",
-  "AWS Config",
-  "Zero-trust Network",
+  "OPA / Gatekeeper",
+  "Trivy + Cosign",
+  "External Secrets",
   "Cost Guard (Lambda + EventBridge)",
 ];
 
@@ -162,7 +170,7 @@ export default function TechStack() {
         />
         <Column
           title="// OBSERVABILITY & SECURITY"
-          subtitle="monitoring · zero-trust · cost"
+          subtitle="slo · supply-chain · cost"
           items={OBS}
           tone="blue"
           icon={Eye}

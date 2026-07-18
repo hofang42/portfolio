@@ -35,17 +35,18 @@ export default function About() {
               Infrastructure as Code (Terraform)
             </span>
             , container orchestration{" "}
-            <span className="text-ink font-mono">(Docker / Kubernetes)</span>,
-            and building scalable, cost-aware,{" "}
-            <span className="text-neon font-mono">zero-trust</span>{" "}
-            infrastructure. Bridging application development with resilient
-            cloud operations.
+            <span className="text-ink font-mono">(Docker / Kubernetes)</span>,{" "}
+            <span className="text-neon font-mono">GitOps</span> delivery, and
+            SLO-driven{" "}
+            <span className="text-ink font-mono">observability</span> — building
+            scalable, cost-aware, secure infrastructure. Bridging application
+            development with resilient cloud operations.
           </p>
 
           <div className="mt-6 grid sm:grid-cols-3 gap-3">
             {[
               { k: "current_role", v: "CloudOps Intern", c: "text-neon" },
-              { k: "track", v: "DevOps / Cloud", c: "text-amber" },
+              { k: "track", v: "Cloud / DevOps (CDO)", c: "text-amber" },
               { k: "open_to", v: "Internship · Full-time", c: "text-ink" },
             ].map((s) => (
               <div
@@ -91,17 +92,14 @@ export default function About() {
 
             <dl className="space-y-2.5 font-mono text-xs">
               <div className="flex justify-between gap-3">
-                <dt className="text-ink-faint">duration</dt>
-                <dd className="text-ink">4 – 6 months</dd>
+                <dt className="text-ink-faint">structure</dt>
+                <dd className="text-ink">3 phases</dd>
               </div>
               <div className="flex justify-between gap-3">
-                <dt className="text-ink-faint">tracks</dt>
+                <dt className="text-ink-faint">track</dt>
                 <dd className="flex items-center gap-1.5">
-                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border border-neon/40 text-neon bg-neon/[0.06]">
-                    <Cloud className="h-3 w-3" /> Cloud
-                  </span>
                   <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border border-amber/40 text-amber bg-amber/[0.06]">
-                    <Cpu className="h-3 w-3" /> AI
+                    <Cpu className="h-3 w-3" /> Cloud / DevOps
                   </span>
                 </dd>
               </div>

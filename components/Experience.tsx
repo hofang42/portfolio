@@ -14,14 +14,14 @@ type Entry = {
 const ENTRIES: Entry[] = [
   {
     range: "[2026-04 → present]",
-    title: "XBrain — DevOps / CloudOps Intern",
-    role: "Cloud Infrastructure & DevOps",
+    title: "XBrain × AWS Accelerator — Cloud/DevOps Intern",
+    role: "Cloud Infrastructure & DevOps (CDO track)",
     bullets: [
-      "Architecture: 3-tier HA across multi-AZ — VPC, Security Groups, IAM least-privilege, KMS encryption.",
-      "IaC: Terraform — automated VPC, EC2, S3, IAM provisioning. Eliminated config drift via remote state.",
-      "Containers: Docker + Kubernetes (Minikube / EKS) — scalable deployments, isolated workloads.",
-      "Cost & Ops: Lambda + EventBridge Cost Guard. CloudWatch dashboards for real-time alerting.",
-      "AI: Amazon Bedrock — Knowledge Base + RAG pipeline. GenAI embedded into application backend.",
+      "P1 Foundation: 3-tier HA on AWS — VPC, IAM least-privilege, KMS, RDS/DynamoDB, plus a Bedrock Knowledge Base + RAG pipeline over an OpenSearch vector store.",
+      "P2 IaC + K8s: Terraform with remote state (S3 + DynamoDB lock) and modules; Docker + Kubernetes (minikube / EKS) deployed via Helm.",
+      "P2 Delivery: GitOps with ArgoCD, GitHub Actions CI/CD, and Argo Rollouts canary that auto-aborts on bad metrics.",
+      "P2 Observability & security: OpenTelemetry → Prometheus/Grafana/Loki, SLO burn-rate alerts, RBAC + OPA/Gatekeeper, Trivy/Cosign supply-chain, External Secrets.",
+      "P3 Service takeover: operating a live 18-microservice AI storefront (gRPC + Kafka on K8s) — build→ECR→Helm, on-call incident response, cost/SLO under real constraints.",
     ],
     status: "active",
     featured: true,
