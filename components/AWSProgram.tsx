@@ -23,7 +23,7 @@ const PHASES: Phase[] = [
   {
     tag: "phase_1",
     icon: Cloud,
-    title: "Foundation — AWS Core",
+    title: "Foundation · AWS Core",
     weeks: "W1–W7",
     desc: "3-tier app hardened week over week, capped by a 48h AI-SaaS hackathon on a personal account under a $100 cap.",
     items: [
@@ -39,11 +39,11 @@ const PHASES: Phase[] = [
   {
     tag: "phase_2",
     icon: GitBranch,
-    title: "Specialization — Cloud / DevOps (CDO)",
+    title: "Specialization · Cloud / DevOps (CDO)",
     weeks: "W8–W12",
     desc: "Building a mini platform end-to-end: IaC → K8s → GitOps → observability → progressive delivery → cluster-level security.",
     items: [
-      "Terraform IaC — remote state (S3 + DynamoDB lock), modules, ADRs",
+      "Terraform IaC: remote state (S3 + DynamoDB lock), modules, ADRs",
       "Kubernetes (minikube / EKS) · Helm · GitOps with ArgoCD",
       "GitHub Actions CI/CD · Argo Rollouts canary with metric auto-abort",
       "OpenTelemetry + Prometheus / Grafana / Loki · SLO burn-rate alerts",
@@ -55,7 +55,7 @@ const PHASES: Phase[] = [
   {
     tag: "phase_3",
     icon: Radar,
-    title: "Service Takeover — Production Ops",
+    title: "Service Takeover · Production Ops",
     weeks: "live",
     desc: "Operating a live 18-microservice AI storefront on Kubernetes as a real engineer: own the SLA, run incidents, improve under real constraints.",
     items: [
@@ -73,13 +73,8 @@ export default function AWSProgram() {
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
       <div className="mb-6">
-        <div className="font-mono text-xs text-ink-faint mb-2">
-          <span className="text-neon">$</span> aws describe-program
-          --name xbrain-accelerator
-        </div>
         <h2 className="font-mono text-2xl sm:text-3xl md:text-4xl text-ink">
-          <span className="text-ink-dim">#</span>{" "}
-          <span className="text-glow-amber text-amber">XBrain × AWS Accelerator</span>
+          <span className="text-amber">#</span> XBrain × AWS Accelerator
         </h2>
       </div>
 
@@ -117,7 +112,7 @@ export default function AWSProgram() {
           <div className="grid lg:grid-cols-[1fr_1.15fr] gap-7 lg:gap-10">
             <div>
               <p className="text-ink-dim text-base sm:text-lg leading-relaxed">
-                Real, production-style cloud work — not slideware. A three-phase
+                Real, production-style cloud work, not slideware. A three-phase
                 accelerator: build the AWS{" "}
                 <span className="text-neon font-mono">foundation</span>,
                 specialize on the{" "}
@@ -206,13 +201,13 @@ export default function AWSProgram() {
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-2">
-                          <div className="font-mono text-sm text-ink">
+                          <h3 className="font-mono text-sm text-ink font-normal">
                             <span className={`${accentText}`}>{p.tag}</span>
                             <span className="text-ink-faint"> · </span>
                             {p.title}
-                          </div>
+                          </h3>
                           <span
-                            className={`font-mono text-[10px] px-1.5 py-0.5 rounded-sm border shrink-0 ${
+                            className={`font-mono text-[11px] px-1.5 py-0.5 rounded-sm border shrink-0 ${
                               p.status === "active"
                                 ? "border-neon/40 bg-neon/[0.06] text-neon"
                                 : "border-line text-ink-faint"
@@ -221,7 +216,7 @@ export default function AWSProgram() {
                             {p.weeks}
                           </span>
                         </div>
-                        <div className="text-xs text-ink-dim mt-1 leading-relaxed">
+                        <div className="text-xs text-ink-dim mt-1 leading-relaxed font-sans">
                           {p.desc}
                         </div>
                         <ul className="mt-2.5 space-y-1">

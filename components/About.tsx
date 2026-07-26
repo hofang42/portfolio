@@ -1,44 +1,24 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Cloud, Cpu, GraduationCap } from "lucide-react";
 
 export default function About() {
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
       <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-          className="lg:col-span-2"
-        >
-          <div className="font-mono text-xs text-ink-faint mb-3">
-            <span className="text-neon">$</span> cat about.md
-          </div>
+        <div className="lg:col-span-2">
           <h2 className="font-mono text-2xl sm:text-3xl md:text-4xl text-ink mb-5">
-            <span className="text-ink-dim">#</span>{" "}
-            <span className="text-glow-neon text-neon">About</span>
-            <span className="animate-blink text-neon">_</span>
+            <span className="text-neon">#</span> About
           </h2>
           <p className="text-ink-dim leading-relaxed text-base sm:text-lg max-w-2xl">
-            <span className="text-ink font-mono">Software Engineer</span> with
-            a solid background in full-stack development, transitioning
+            Software Engineer with a solid full-stack background, transitioning
             strongly into{" "}
-            <span className="text-neon font-mono">Cloud Architecture</span>{" "}
-            and{" "}
-            <span className="text-amber font-mono">DevOps</span>. Skilled in
-            designing and hardening highly available AWS environments.
-            Passionate about{" "}
-            <span className="text-ink font-mono">
-              Infrastructure as Code (Terraform)
-            </span>
-            , container orchestration{" "}
-            <span className="text-ink font-mono">(Docker / Kubernetes)</span>,{" "}
-            <span className="text-neon font-mono">GitOps</span> delivery, and
-            SLO-driven{" "}
-            <span className="text-ink font-mono">observability</span> — building
+            <span className="text-neon font-mono">Cloud Architecture</span> and{" "}
+            <span className="text-amber font-mono">DevOps</span>. Designing and
+            hardening highly available AWS environments with Infrastructure as
+            Code (Terraform), container orchestration (Docker / Kubernetes),
+            GitOps delivery, and SLO-driven{" "}
+            <span className="text-ink font-mono">observability</span>, building
             scalable, cost-aware, secure infrastructure. Bridging application
             development with resilient cloud operations.
           </p>
@@ -58,21 +38,10 @@ export default function About() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        <motion.aside
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="relative"
-        >
+        <aside className="relative">
           <div className="terminal-frame rounded-md p-5 relative">
-            <span className="corner-tl" />
-            <span className="corner-tr" />
-            <span className="corner-bl" />
-            <span className="corner-br" />
-
             <div className="font-mono text-[11px] text-ink-faint mb-3 flex items-center justify-between">
               <span>./program-badge.json</span>
               <span className="text-amber">●</span>
@@ -83,7 +52,7 @@ export default function About() {
                 <Cloud className="h-5 w-5 text-amber" />
               </div>
               <div>
-                <div className="font-mono text-sm text-amber">Xbrain × AWS</div>
+                <h3 className="font-mono text-sm text-amber">XBrain × AWS</h3>
                 <div className="text-[11px] font-mono text-ink-faint">
                   Accelerator Internship
                 </div>
@@ -115,7 +84,7 @@ export default function About() {
                 <dt className="text-ink-faint">status</dt>
                 <dd className="text-neon flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-neon animate-pulse" />
-                  enrolled
+                  phase 3 · operating
                 </dd>
               </div>
             </dl>
@@ -125,7 +94,7 @@ export default function About() {
               <span>cohort_2026 // job-ready</span>
             </div>
           </div>
-        </motion.aside>
+        </aside>
       </div>
     </div>
   );

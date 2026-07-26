@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { animate, motion, useInView, useReducedMotion } from "framer-motion";
 import { ArrowRight, Download, Terminal } from "lucide-react";
 import Link from "next/link";
 
@@ -28,8 +28,19 @@ function useTypewriter(lines: BootLine[]) {
   const [completedLines, setCompletedLines] = useState<number>(0);
   const [currentText, setCurrentText] = useState<string>("");
   const [done, setDone] = useState(false);
+  const reduceMotion = useReducedMotion();
+
+  const skip = () => {
+    setCompletedLines(lines.length);
+    setCurrentText("");
+    setDone(true);
+  };
 
   useEffect(() => {
+    if (reduceMotion) {
+      skip();
+      return;
+    }
     if (completedLines >= lines.length) {
       setDone(true);
       return;
@@ -59,10 +70,74 @@ function useTypewriter(lines: BootLine[]) {
       cancelled = true;
       clearTimeout(startTimer);
     };
-  }, [completedLines, lines]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [completedLines, lines, reduceMotion]);
 
-  return { completedLines, currentText, done };
+  return { completedLines, currentText, done, skip };
 }
+
+/* ─── animated metric counter ──────────────────────────────────── */
+
+function CountUp({
+  to,
+  decimals = 0,
+  suffix = "",
+}: {
+  to: number;
+  decimals?: number;
+  suffix?: string;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    // safety net: always land on the final value even if the observer
+    // or animation frames never fire (hidden tab, old browser)
+    const fallback = window.setTimeout(() => {
+      el.textContent = to.toFixed(decimals) + suffix;
+    }, 3000);
+    if (!inView) return () => window.clearTimeout(fallback);
+    if (reduceMotion) {
+      el.textContent = to.toFixed(decimals) + suffix;
+      return () => window.clearTimeout(fallback);
+    }
+    const controls = animate(0, to, {
+      duration: 1.2,
+      ease: "easeOut",
+      onUpdate: (v) => {
+        el.textContent = v.toFixed(decimals) + suffix;
+      },
+    });
+    return () => {
+      window.clearTimeout(fallback);
+      controls.stop();
+    };
+  }, [inView, to, decimals, suffix, reduceMotion]);
+
+  // initial content is always "0" so server and client markup match;
+  // the effect fills in the final value (instantly under reduced motion)
+  return (
+    <span ref={ref} className="tabular-nums">
+      {"0" + suffix}
+    </span>
+  );
+}
+
+const METRICS: Array<{
+  value: number;
+  decimals?: number;
+  suffix?: string;
+  label: string;
+  tone: "neon" | "amber" | "ink";
+}> = [
+  { value: 18, label: "microservices in production ops", tone: "neon" },
+  { value: 3, label: "accelerator phases · P3 live", tone: "amber" },
+  { value: 10, suffix: "+", label: "AWS services deployed", tone: "ink" },
+  { value: 8.62, decimals: 2, label: "GPA @ FPT University", tone: "ink" },
+];
 
 function toneClass(tone: string) {
   switch (tone) {
@@ -76,16 +151,16 @@ function toneClass(tone: string) {
 }
 
 export default function Hero() {
-  const { completedLines, currentText, done } = useTypewriter(BOOT_LINES);
+  const { completedLines, currentText, done, skip } = useTypewriter(BOOT_LINES);
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden flex flex-col">
+    <div className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col">
       {/* ─── Layered background ─────────────────────────────── */}
       <div className="parallax-hero-bg absolute inset-0 z-0 grid-bg constellation-bg" aria-hidden />
-      <div className="parallax-hero-bg absolute inset-0 z-0 stars-bg opacity-60 animate-drift" aria-hidden />
+      <div className="parallax-hero-bg absolute inset-0 z-0 stars-bg opacity-60" aria-hidden />
       <div
         aria-hidden
-        className="parallax-hero-bg pointer-events-none absolute inset-0 z-0 opacity-[0.22] animate-flicker"
+        className="parallax-hero-bg pointer-events-none absolute inset-0 z-0 opacity-[0.22]"
         style={{
           background:
             "radial-gradient(ellipse 70% 40% at 50% 0%, rgba(0,255,148,0.22), transparent 60%), radial-gradient(ellipse 50% 40% at 80% 100%, rgba(245,166,35,0.14), transparent 60%)",
@@ -105,11 +180,11 @@ export default function Hero() {
       <div className="relative z-10 border-b border-ink/15 bg-bg/30 backdrop-blur-[2px] mt-14">
         <div className="container mx-auto px-4 lg:px-10 py-3 lg:py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 lg:gap-4">
-            <div className="font-mono text-ink text-xl lg:text-2xl font-bold tracking-[0.3em] italic -skew-x-12 select-none">
+            <div className="font-mono text-ink text-xl lg:text-2xl font-bold tracking-[0.3em] select-none">
               HOANG<span className="text-neon">.</span>OPS
             </div>
             <div className="h-3 lg:h-4 w-px bg-ink/40" />
-            <span className="text-ink-faint text-[8px] lg:text-[10px] font-mono tracking-widest">
+            <span className="text-ink-faint text-[10px] font-mono tracking-widest">
               EST. 2026
             </span>
           </div>
@@ -138,7 +213,12 @@ export default function Hero() {
           </div>
 
           {/* Terminal card */}
-          <div className="terminal-frame rounded-md p-5 sm:p-7 md:p-9 scanline relative overflow-hidden">
+          <div
+            className={`terminal-frame rounded-md p-5 sm:p-7 md:p-9 scanline relative overflow-hidden ${
+              done ? "" : "cursor-pointer"
+            }`}
+            onClick={() => !done && skip()}
+          >
             <span className="corner-tl" />
             <span className="corner-tr" />
             <span className="corner-bl" />
@@ -153,7 +233,20 @@ export default function Hero() {
                 <span>~/hoang/portfolio.sh</span>
               </div>
               <div className="ml-auto text-[11px] sm:text-xs font-mono text-ink-faint tracking-widest">
-                tty/01
+                {done ? (
+                  "tty/01"
+                ) : (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      skip();
+                    }}
+                    className="text-ink-faint hover:text-neon transition-colors"
+                  >
+                    [ skip ]
+                  </button>
+                )}
               </div>
             </div>
 
@@ -185,47 +278,79 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* dotted decoration */}
-          <div className="hidden lg:flex gap-1 mt-5 opacity-50">
-            {Array.from({ length: 56 }).map((_, i) => (
-              <div
-                key={i}
-                className={`w-0.5 h-0.5 rounded-full ${
-                  i % 7 === 0 ? "bg-neon" : i % 11 === 0 ? "bg-amber" : "bg-ink/70"
-                }`}
-              />
-            ))}
-          </div>
-
           {/* Title + description */}
           <div className="relative mt-6 lg:mt-7">
             <div className="hidden lg:block absolute -left-3 top-0 bottom-0 w-1 dither-pattern opacity-50" />
             <motion.h1
               initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: done ? 1 : 0.4, y: done ? 0 : 8 }}
-              transition={{ duration: 0.5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
               className="font-mono font-bold text-ink text-2xl sm:text-3xl md:text-5xl tracking-[0.18em] leading-tight"
             >
+              <span className="sr-only">
+                Phan Lê Thanh Hoàng, DevOps &amp; Cloud Engineer.{" "}
+              </span>
               ENDLESS{" "}
               <span className="text-glow-neon text-neon">DEPLOYMENT</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: done ? 0.85 : 0, y: done ? 0 : 6 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-ink-dim text-sm sm:text-base font-mono mt-3 max-w-2xl leading-relaxed"
+              animate={{ opacity: 0.9, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.55 }}
+              className="text-ink-dim text-sm sm:text-base mt-3 max-w-2xl leading-relaxed"
             >
-              Frontend engineer pivoting into <span className="text-neon">cloud</span> &amp;{" "}
-              <span className="text-amber">DevOps</span>. Every pipeline, every container,
-              every IAM policy — pushed forward, one commit at a time.
+              CloudOps intern @{" "}
+              <span className="text-amber font-mono">XBrain × AWS Accelerator</span>:
+              building HA infrastructure with{" "}
+              <span className="text-neon font-mono">Terraform</span>,{" "}
+              <span className="text-neon font-mono">Kubernetes</span> &amp; GitOps,
+              operating a live 18-microservice AI storefront.
             </motion.p>
           </div>
+
+          {/* Metrics strip */}
+          <motion.dl
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+            className="mt-6 grid grid-cols-2 lg:grid-cols-4 border border-line/80 rounded-sm bg-bg-soft/30 overflow-hidden"
+          >
+            {METRICS.map((m, i) => (
+              <div
+                key={m.label}
+                className={`px-4 py-3 flex flex-col border-line/60 ${
+                  i % 2 === 1 ? "border-l" : ""
+                } ${i >= 2 ? "border-t lg:border-t-0" : ""} ${
+                  i === 2 ? "lg:border-l" : ""
+                }`}
+              >
+                <dt className="order-2 font-mono text-[10px] leading-snug text-ink-dim mt-1">
+                  {m.label}
+                </dt>
+                <dd
+                  className={`order-1 font-mono text-xl sm:text-2xl ${
+                    m.tone === "neon"
+                      ? "text-neon"
+                      : m.tone === "amber"
+                        ? "text-amber"
+                        : "text-ink"
+                  }`}
+                >
+                  <CountUp
+                    to={m.value}
+                    decimals={m.decimals ?? 0}
+                    suffix={m.suffix ?? ""}
+                  />
+                </dd>
+              </div>
+            ))}
+          </motion.dl>
 
           {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: done ? 1 : 0, y: done ? 0 : 8 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.85 }}
             className="mt-6 flex flex-col sm:flex-row gap-3"
           >
             <Link
@@ -240,7 +365,7 @@ export default function Hero() {
               <span className="text-current/70">]</span>
             </Link>
             <a
-              href="/cv/Phan-Le-Thanh-Hoang-CV.pdf"
+              href="/cv/Phan-Le-Thanh-Hoang-CV-2026.pdf"
               download
               className="group relative inline-flex items-center justify-center gap-2 rounded-sm border border-amber/60 bg-amber/[0.06] px-5 py-2.5 text-sm font-mono text-amber hover:bg-amber hover:text-bg hover:shadow-amber-sm transition-all"
             >
@@ -253,22 +378,13 @@ export default function Hero() {
             </a>
           </motion.div>
 
-          {/* protocol notation */}
-          <div className="hidden lg:flex items-center gap-2 mt-7 opacity-50">
-            <span className="text-ink text-[9px] font-mono">∞</span>
-            <div className="flex-1 h-px bg-ink/30" />
-            <span className="text-neon/80 text-[9px] font-mono tracking-widest">
-              HOANG.PROTOCOL
-            </span>
-            <div className="w-8 h-px bg-ink/70" />
-          </div>
         </div>
       </div>
 
       {/* ─── Hero internal footer (status bar) ──────────────── */}
       <div className="relative z-10 border-t border-ink/15 bg-bg/40 backdrop-blur-sm">
         <div className="container mx-auto px-4 lg:px-10 py-2 lg:py-3 flex items-center justify-between">
-          <div className="flex items-center gap-3 lg:gap-6 text-[8px] lg:text-[10px] font-mono text-ink-faint">
+          <div className="flex items-center gap-3 lg:gap-6 text-[10px] font-mono text-ink-faint">
             <span className="flex items-center gap-1.5 text-neon/85">
               <span className="relative flex h-1.5 w-1.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon opacity-75" />
@@ -290,23 +406,15 @@ export default function Hero() {
                 />
               ))}
             </div>
-            <span>V1.0.0</span>
+            <span>V2.0.0</span>
           </div>
 
-          <div className="flex items-center gap-2 lg:gap-4 text-[8px] lg:text-[10px] font-mono text-ink-faint">
-            <span className="hidden lg:inline text-amber/80">◐ RENDERING</span>
-            <span className="flex gap-1">
-              <span className="w-1 h-1 bg-neon/80 rounded-full animate-pulse" />
-              <span
-                className="w-1 h-1 bg-neon/60 rounded-full animate-pulse"
-                style={{ animationDelay: "0.2s" }}
-              />
-              <span
-                className="w-1 h-1 bg-neon/30 rounded-full animate-pulse"
-                style={{ animationDelay: "0.4s" }}
-              />
-            </span>
-            <span className="hidden sm:inline">UPTIME: ∞</span>
+          <div className="flex items-center gap-2 lg:gap-4 text-[10px] font-mono text-ink-faint">
+            <span className="hidden lg:inline">18 services · gRPC + Kafka</span>
+            <span className="hidden lg:inline text-line">|</span>
+            <span className="hidden sm:inline text-amber/90">on-call</span>
+            <span className="hidden sm:inline text-line">|</span>
+            <span>ap-southeast-1</span>
           </div>
         </div>
       </div>

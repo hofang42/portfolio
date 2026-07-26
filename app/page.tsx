@@ -39,31 +39,31 @@ export default function HomePage() {
       >
         <Hero />
       </section>
-      <Divider label="ABOUT" />
+      <Divider label="ABOUT" cmd="cat about.md" />
       <SectionShell id="about">
         <About />
       </SectionShell>
-      <Divider label="STACK" />
-      <SectionShell id="stack">
-        <TechStack />
-      </SectionShell>
-      <Divider label="OPS_LOG" />
+      <Divider label="OPS_LOG" cmd="tail -f ops.log" />
       <SectionShell id="experience">
         <Experience />
       </SectionShell>
-      <Divider label="ACCELERATOR" />
+      <Divider label="ACCELERATOR" cmd="cat ./xbrain-accelerator.md" />
       <SectionShell id="aws">
         <AWSProgram />
       </SectionShell>
-      <Divider label="PROJECTS" />
+      <Divider label="PROJECTS" cmd="ls ./projects" />
       <SectionShell id="projects">
         <Projects />
       </SectionShell>
-      <Divider label="EDU" />
+      <Divider label="STACK" cmd="ls -la ./skills/" />
+      <SectionShell id="stack">
+        <TechStack />
+      </SectionShell>
+      <Divider label="EDU" cmd="cat education.yml" />
       <SectionShell id="education">
         <Education />
       </SectionShell>
-      <Divider label="CONTACT" />
+      <Divider label="CONTACT" cmd="./contact --interactive" />
       <SectionShell id="contact">
         <Contact />
       </SectionShell>

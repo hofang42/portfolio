@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -75,7 +76,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetbrains.variable}`}>
       <body className="min-h-screen bg-bg text-ink font-sans antialiased">
-        {children}
+        <a href="#home" className="skip-link">
+          skip --to-content
+        </a>
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

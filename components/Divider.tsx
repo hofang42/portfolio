@@ -2,9 +2,10 @@
 
 type Props = {
   label?: string;
+  cmd?: string;
 };
 
-export default function Divider({ label }: Props) {
+export default function Divider({ label, cmd }: Props) {
   return (
     <div
       aria-hidden
@@ -19,6 +20,11 @@ export default function Divider({ label }: Props) {
         <span className="ascii-divider flex-1 truncate">
           ─────────────────────────────────────────────────────────────────────
         </span>
+        {cmd && (
+          <span className="hidden sm:inline whitespace-nowrap">
+            <span className="text-neon">$</span> {cmd}
+          </span>
+        )}
       </div>
     </div>
   );

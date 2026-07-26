@@ -17,7 +17,7 @@ const config: Config = {
         ink: {
           DEFAULT: "#E6EDF3",
           dim: "#8B949E",
-          faint: "#6E7681",
+          faint: "#7D8590",
         },
         neon: {
           DEFAULT: "#00FF94",

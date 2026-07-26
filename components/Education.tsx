@@ -1,11 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Award, GraduationCap } from "lucide-react";
 
 const CERTS = [
   { name: "Project Management", year: "2025" },
-  { name: "React Ultimate — Udemy", year: "2025" },
+  { name: "React Ultimate · Udemy", year: "2025" },
   { name: "Research Methods", year: "2025" },
   { name: "Web Design for Everybody", year: "2024" },
   { name: "Software Development Lifecycle", year: "2024" },
@@ -15,34 +14,19 @@ export default function Education() {
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
       <div className="mb-6">
-        <div className="font-mono text-xs text-ink-faint mb-2">
-          <span className="text-neon">$</span> cat education.yml
-        </div>
         <h2 className="font-mono text-2xl sm:text-3xl md:text-4xl text-ink">
-          <span className="text-ink-dim">#</span>{" "}
-          <span className="text-glow-neon text-neon">Education &amp; Certs</span>
+          <span className="text-neon">#</span> Education &amp; Certs
         </h2>
       </div>
 
       <div className="grid lg:grid-cols-[1.1fr_1fr] gap-5 lg:gap-6">
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5 }}
-          className="terminal-frame rounded-md p-5 sm:p-6 relative"
-        >
-          <span className="corner-tl" />
-          <span className="corner-tr" />
-          <span className="corner-bl" />
-          <span className="corner-br" />
-
+        <div className="terminal-frame rounded-md p-5 sm:p-6 relative">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-10 w-10 rounded-sm border border-neon/40 bg-neon/[0.06] grid place-items-center">
               <GraduationCap className="h-5 w-5 text-neon" />
             </div>
             <div>
-              <div className="font-mono text-sm text-neon">FPT University</div>
+              <h3 className="font-mono text-sm text-neon">FPT University</h3>
               <div className="text-[11px] font-mono text-ink-faint">
                 Bachelor · Software Engineering
               </div>
@@ -88,45 +72,40 @@ export default function Education() {
               <span className="text-neon">Y4 ●</span>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, delay: 0.08 }}
-          className="terminal-frame rounded-md p-5 sm:p-6 relative"
-        >
-          <span className="corner-tl" />
-          <span className="corner-tr" />
-          <span className="corner-bl" />
-          <span className="corner-br" />
-
+        <div className="terminal-frame rounded-md p-5 sm:p-6 relative">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-10 w-10 rounded-sm border border-amber/40 bg-amber/[0.06] grid place-items-center">
               <Award className="h-5 w-5 text-amber" />
             </div>
             <div>
-              <div className="font-mono text-sm text-amber">Certifications</div>
+              <h3 className="font-mono text-sm text-amber">Certifications</h3>
               <div className="text-[11px] font-mono text-ink-faint">
                 ./certs/*.crt
               </div>
             </div>
           </div>
 
-          <ul className="grid sm:grid-cols-2 gap-2">
+          <ul className="divide-y divide-line/60">
             {CERTS.map((c) => (
-              <li key={c.name} className="cert-pill">
-                <div className="font-mono text-xs border border-line rounded-sm px-3 py-2 bg-bg-soft/30 hover:border-amber/50 hover:bg-amber/[0.04] transition-colors">
-                  <div className="text-ink leading-tight">{c.name}</div>
-                  <div className="text-amber/80 mt-1 text-[11px]">
-                    issued · {c.year}
-                  </div>
-                </div>
+              <li
+                key={c.name}
+                className="cert-pill flex items-baseline justify-between gap-3 py-2 font-mono text-xs"
+              >
+                <span className="text-ink leading-tight">{c.name}</span>
+                <span className="text-ink-faint shrink-0 text-[11px]">
+                  {c.year}
+                </span>
               </li>
             ))}
           </ul>
-        </motion.div>
+
+          <div className="mt-4 pt-3 border-t border-line/70 font-mono text-[11px] text-ink-faint">
+            <span className="text-amber/90">cloud training:</span> XBrain × AWS
+            Accelerator · see ~/ops_log
+          </div>
+        </div>
       </div>
     </div>
   );

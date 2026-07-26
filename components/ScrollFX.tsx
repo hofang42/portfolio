@@ -42,7 +42,8 @@ function typeText(
     } else {
       window.setTimeout(() => {
         if (cancelled) return;
-        el.style.display = "none";
+        caret.remove();
+        el.classList.add("typer-done");
         onDone();
       }, 80);
     }
@@ -70,8 +71,8 @@ export default function ScrollFX() {
       scrollRaf = 0;
       const doc = document.documentElement;
       const max = doc.scrollHeight - window.innerHeight;
-      const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
-      bar.style.width = `${pct}%`;
+      const pct = max > 0 ? window.scrollY / max : 0;
+      bar.style.transform = `scaleX(${pct})`;
     };
     const onScroll = () => {
       if (!scrollRaf) scrollRaf = requestAnimationFrame(updateProgress);
@@ -136,6 +137,7 @@ export default function ScrollFX() {
 
       return () => {
         window.removeEventListener("scroll", onScroll);
+        if (scrollRaf) cancelAnimationFrame(scrollRaf);
         bar.remove();
         navObs.disconnect();
       };
@@ -178,12 +180,11 @@ export default function ScrollFX() {
 
       if (typer && message) {
         typer.style.display = "block";
-        window.setTimeout(() => {
-          const cancel = typeText(typer, message, () => {
-            typer.style.display = "none";
-          });
+        const holdTimer = window.setTimeout(() => {
+          const cancel = typeText(typer, message, () => {});
           cancelers.push(cancel);
         }, PROMPT_HOLD);
+        cancelers.push(() => window.clearTimeout(holdTimer));
       }
       fireRevealAndStagger();
     };

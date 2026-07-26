@@ -14,21 +14,21 @@ type Entry = {
 const ENTRIES: Entry[] = [
   {
     range: "[2026-04 → present]",
-    title: "XBrain × AWS Accelerator — Cloud/DevOps Intern",
+    title: "XBrain × AWS Accelerator · Cloud/DevOps Intern",
     role: "Cloud Infrastructure & DevOps (CDO track)",
     bullets: [
-      "P1 Foundation: 3-tier HA on AWS — VPC, IAM least-privilege, KMS, RDS/DynamoDB, plus a Bedrock Knowledge Base + RAG pipeline over an OpenSearch vector store.",
+      "P1 Foundation: 3-tier HA on AWS with VPC, IAM least-privilege, KMS, RDS/DynamoDB, plus a Bedrock Knowledge Base + RAG pipeline over an OpenSearch vector store.",
       "P2 IaC + K8s: Terraform with remote state (S3 + DynamoDB lock) and modules; Docker + Kubernetes (minikube / EKS) deployed via Helm.",
       "P2 Delivery: GitOps with ArgoCD, GitHub Actions CI/CD, and Argo Rollouts canary that auto-aborts on bad metrics.",
       "P2 Observability & security: OpenTelemetry → Prometheus/Grafana/Loki, SLO burn-rate alerts, RBAC + OPA/Gatekeeper, Trivy/Cosign supply-chain, External Secrets.",
-      "P3 Service takeover: operating a live 18-microservice AI storefront (gRPC + Kafka on K8s) — build→ECR→Helm, on-call incident response, cost/SLO under real constraints.",
+      "P3 Service takeover: operating a live 18-microservice AI storefront (gRPC + Kafka on K8s) with build→ECR→Helm, on-call incident response, cost/SLO under real constraints.",
     ],
     status: "active",
     featured: true,
   },
   {
     range: "[2026-01 → 2026-06]",
-    title: "GZMart — E-commerce Platform",
+    title: "GZMart · E-commerce Platform",
     role: "Fullstack Member",
     stack: "React 18, TypeScript, Tailwind, Redux, Socket.IO, Ant Design",
     highlight: "Multi-role ERP system (Buyer / Seller / Admin)",
@@ -36,18 +36,18 @@ const ENTRIES: Entry[] = [
   },
   {
     range: "[2025-09 → 2025-12]",
-    title: "VIC SPORT — Online Sport Booking",
+    title: "VIC SPORT · Online Sport Booking",
     role: "Project Lead",
     stack: "React, TypeScript, Vite, Ant Design, Google Maps API, Socket.IO",
     status: "shipped",
   },
   {
     range: "[2025-05 → 2025-09]",
-    title: "FLearning — Online Learning Platform",
+    title: "FLearning · Online Learning Platform",
     role: "Project Lead",
     stack:
       "React.js, Redux Toolkit, Axios, Socket.IO, Vercel, GitHub Actions (CI/CD)",
-    highlight: "First CI/CD pipeline with GitHub Actions — DevOps entry point",
+    highlight: "First CI/CD pipeline with GitHub Actions, the DevOps entry point",
     status: "shipped",
   },
   {
@@ -62,12 +62,8 @@ export default function Experience() {
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-10">
       <div className="mb-6">
-        <div className="font-mono text-xs text-ink-faint mb-2">
-          <span className="text-neon">$</span> tail -f ops.log
-        </div>
         <h2 className="font-mono text-2xl sm:text-3xl md:text-4xl text-ink">
-          <span className="text-ink-dim">#</span>{" "}
-          <span className="text-glow-neon text-neon">Ops Log</span>
+          <span className="text-neon">#</span> Ops Log
         </h2>
         <p className="text-ink-dim mt-2 max-w-2xl text-sm sm:text-base">
           A chronological deployment log of cloud infra built and projects shipped.
@@ -75,11 +71,6 @@ export default function Experience() {
       </div>
 
       <div className="terminal-frame rounded-md relative overflow-hidden">
-        <span className="corner-tl" />
-        <span className="corner-tr" />
-        <span className="corner-bl" />
-        <span className="corner-br" />
-
         <div className="px-5 py-3 border-b border-line/70 flex items-center justify-between font-mono text-[11px] text-ink-faint">
           <span>./deployments.log</span>
           <span className="flex items-center gap-1.5">
@@ -99,7 +90,7 @@ export default function Experience() {
               }`}
             >
               {e.featured && (
-                <div className="absolute top-3 right-4 flex items-center gap-1.5 font-mono text-[10px] tracking-widest">
+                <div className="absolute top-3 right-4 flex items-center gap-1.5 font-mono text-[11px] tracking-widest">
                   <span className="text-neon">★</span>
                   <span className="text-neon">FEATURED</span>
                 </div>
@@ -122,14 +113,14 @@ export default function Experience() {
                   </span>
                 </div>
                 <div className="space-y-1.5 min-w-0">
-                  <div className="text-ink text-base sm:text-lg break-words">
+                  <h3 className="text-ink text-base sm:text-lg break-words font-normal">
                     {e.title}
                     {e.status === "active" && (
-                      <span className="ml-2 text-[10px] uppercase tracking-widest text-neon border border-neon/40 bg-neon/[0.06] px-1.5 py-0.5 rounded-sm align-middle">
+                      <span className="ml-2 text-[11px] uppercase tracking-widest text-neon border border-neon/40 bg-neon/[0.06] px-1.5 py-0.5 rounded-sm align-middle">
                         live
                       </span>
                     )}
-                  </div>
+                  </h3>
                   {e.role && (
                     <div className="text-xs sm:text-sm text-ink-dim flex flex-wrap items-center gap-1.5">
                       <span className="text-neon/70">└─</span>
@@ -141,7 +132,9 @@ export default function Experience() {
                     <div className="text-xs sm:text-sm text-ink-dim flex flex-wrap items-baseline gap-1.5">
                       <span className="text-neon/70">└─</span>
                       <span className="text-ink-faint">Stack:</span>
-                      <span className="text-ink-dim break-words">{e.stack}</span>
+                      <span className="text-ink-dim break-words font-sans">
+                        {e.stack}
+                      </span>
                     </div>
                   )}
                   {e.highlight && (
@@ -159,7 +152,9 @@ export default function Experience() {
                           className="text-xs sm:text-sm flex items-start gap-2 text-ink-dim"
                         >
                           <span className="text-neon/80 shrink-0 mt-0.5">└─</span>
-                          <span className="text-ink/90 break-words">{b}</span>
+                          <span className="text-ink/90 break-words font-sans leading-relaxed">
+                            {b}
+                          </span>
                         </li>
                       ))}
                     </ul>
