@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, JetBrains_Mono } from "next/font/google";
+
 import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
 
@@ -76,6 +78,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetbrains.variable}`}>
       <body className="min-h-screen bg-bg text-ink font-sans antialiased">
+        <Script
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          type="module"
+          data-cf-beacon='{"token":"67a536c74d204f699a6aac05be738551"}'
+          strategy="afterInteractive"
+        />
+
         <a href="#home" className="skip-link">
           skip --to-content
         </a>
